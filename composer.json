@@ -1,0 +1,31 @@
+{
+    "name": "phpzlc/snapshot-business",
+    "description": "快照业务组件",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+      "phpzlc",
+      "snapshot",
+      "symfony"
+    ],
+    "homepage": "https://phpzlc.com",
+    "authors": [
+      {
+        "name": "CJayHe",
+        "role": "Developer"
+      },
+      {
+        "name": "海底捞面条师傅",
+        "email": "1847944340@qq.com",
+        "role": "Developer"
+      }
+    ],
+    "autoload": {
+      "psr-4": {
+        "PHPZlc\\AdminBusiness\\": "src/"
+      }
+    },
+    "require": {
+      "phpzlc/phpzlc": "1.*"
+    }
+}
