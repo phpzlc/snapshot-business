@@ -1,4 +1,0 @@
-services:
-  phpzlc.snapshot:
-    class: App\Business\SnapshotBusiness\SnapshotBusiness
-    arguments: ['@service_container']
