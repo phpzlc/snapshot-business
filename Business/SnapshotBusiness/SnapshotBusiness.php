@@ -60,7 +60,7 @@ class SnapshotBusiness extends AbstractBusiness
 
     public function hasKey($key)
     {
-        return !empty($snapshot = $this->snapshotRepository->findOneBy([
+        return !empty($this->snapshotRepository->findOneBy([
             'configKey' => $key
         ]));
     }
