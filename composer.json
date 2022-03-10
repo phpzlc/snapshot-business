@@ -22,10 +22,10 @@
     ],
     "autoload": {
       "psr-4": {
-        "PHPZlc\\AdminBusiness\\": "src/"
+        "PHPZlc\\SnapshotBusiness\\": "src/"
       }
     },
     "require": {
-      "phpzlc/phpzlc": "1.*"
+      "phpzlc/phpzlc": "2.*"
     }
 }
