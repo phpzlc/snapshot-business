@@ -4,4 +4,4 @@
 
 ## 使用文档
 
-[使用文档](https://phpzlc.com/doc/module/snapshot-business)
+[使用文档](https://phpzlc.com/doc/zh-CN/snapshot-business)
