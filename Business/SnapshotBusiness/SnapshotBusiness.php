@@ -44,7 +44,6 @@ class SnapshotBusiness extends AbstractBusiness
         }
 
         $this->em->flush();
-        $this->em->clear();
     }
 
     public function getValue($key, $def = '')
