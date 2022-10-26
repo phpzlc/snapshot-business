@@ -26,7 +26,7 @@ class SnapshotBusiness extends AbstractBusiness
     {
         parent::__construct($container);
 
-        $this->snapshotRepository = $this->getDoctrine()->getRepository('App:Snapshot');
+        $this->snapshotRepository = $this->getDoctrine()->getRepository(Snapshot::class);
     }
 
     public function setValue($key, $value)
