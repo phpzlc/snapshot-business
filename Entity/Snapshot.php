@@ -4,36 +4,23 @@ namespace App\Entity;
 
 use App\Repository\SnapshotRepository;
 use Doctrine\ORM\Mapping as ORM;
+use PHPZlc\PHPZlc\Doctrine\SortIdGenerator;
 
-/**
- * @ORM\Entity(repositoryClass=SnapshotRepository::class)
- * @ORM\Table(name="snapshot", options={"comment":"快照表"})
- */
+#[ORM\Entity(repositoryClass: SnapshotRepository::class)]
+#[ORM\Table(name: "snapshot", options:["comment" => "快照表"])]
 class Snapshot
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="id", type="string")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="PHPZlc\PHPZlc\Doctrine\SortIdGenerator")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(name: "id", type: "string")]
+    #[ORM\GeneratedValue(strategy: "CUSTOM")]
+    #[ORM\CustomIdGenerator(class: SortIdGenerator::class)]
+    private ?string $id = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="config_key", type="string", length=255, unique=true, options={"comment":"键"})
-     */
-    private $configKey;
+    #[ORM\Column(name: "config_key", type: "string", length: 255, unique: true, options: ["comment" => "键"])]
+    private ?string $configKey = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="config_value", type="text", nullable=true, options={"comment":"值"})
-     */
-    private $configValue;
+    #[ORM\Column(name: "config_value", type: "text", nullable:true, options: ["comment" => "值"])]
+    private ?string $configValue = null;
 
     public function getId(): ?string
     {
