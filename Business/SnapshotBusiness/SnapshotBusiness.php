@@ -13,20 +13,29 @@ namespace App\Business\SnapshotBusiness;
 use App\Entity\Snapshot;
 use App\Repository\SnapshotRepository;
 use PHPZlc\PHPZlc\Bundle\Business\AbstractBusiness;
+use PHPZlc\Validate\Validate;
 use Psr\Container\ContainerInterface;
 
 class SnapshotBusiness extends AbstractBusiness
 {
+
+    /**
+     * 缓存信息，避免多次查询
+     *
+     * @var array
+     */
+    private static array $caches = [];
+
     /**
      * @var SnapshotRepository
      */
-    public $snapshotRepository;
+    public SnapshotRepository $snapshotRepository;
 
     public function __construct(ContainerInterface $container)
     {
         parent::__construct($container);
 
-        $this->snapshotRepository = $this->em->getRepository(Snapshot::class);
+        $this->snapshotRepository = $this->em->getRepository('App:Snapshot');
     }
 
     public function setValue($key, $value)
@@ -44,17 +53,32 @@ class SnapshotBusiness extends AbstractBusiness
         }
 
         $this->em->flush();
+
+        if(array_key_exists($key, self::$caches)){
+            unset(self::$caches[$key]);
+        }
+
+        return true;
     }
 
-    public function getValue($key, $def = '')
+    public function getValue($key, $def = '', $isUse = false)
     {
-        $snapshot = $this->snapshotRepository->findOneBy(['configKey' => $key]);
+        if(array_key_exists($key, self::$caches)){
+            return self::$caches[$key];
+        }
 
-        if(empty($snapshot) || empty($snapshot->getConfigValue())){
+        $snapshot = $this->snapshotRepository->findAssoc(['configKey' => $key]);
+
+        if(empty($snapshot) || Validate::isRealEmpty($snapshot->getConfigValue())){
+            self::$caches[$key] = $def;
             return $def;
         }
 
-        return $snapshot->getConfigValue();
+        $content = $snapshot->getConfigValue();
+
+        self::$caches[$key] = $content;
+
+        return $content;
     }
 
     public function hasKey($key)
