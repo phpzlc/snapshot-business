@@ -38,7 +38,7 @@ class SnapshotBusiness extends AbstractBusiness
         $this->snapshotRepository = $this->em->getRepository('App:Snapshot');
     }
 
-    public function setValue($key, $value)
+    public function setValue($key, $value) : bool
     {
         $snapshot = $this->snapshotRepository->findOneBy(['configKey' => $key]);
 
@@ -81,10 +81,14 @@ class SnapshotBusiness extends AbstractBusiness
         return $content;
     }
 
-    public function hasKey($key)
+    public function hasKey($key) :bool
     {
-        return !empty($this->snapshotRepository->findOneBy([
+        if(array_key_exists($key, self::$caches)){
+            return true;
+        }
+
+        return $this->snapshotRepository->isExist([
             'configKey' => $key
-        ]));
+        ]);
     }
 }
